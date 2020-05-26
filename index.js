@@ -1,21 +1,41 @@
-const { prompt} = require( 'inquirer')
+const { prompt} = require( 'inquirer');
+const cTable = require('console.table');
 
 //starting prompt
 prompt([
     {
         type: 'list',
-        name: 'main',
-        message: 'Please select from the below options:',
+        name: 'trackerStart',
+        message: 'What would you like to do?',
         choices: [
             {
-                name: 'Add departments, roles, and/or employees'
+                name: 'View All Employees'
             },
             {
-                name: 'View departments, roles, and employees'
+                name: 'View All Employees by Department'
             },
             {
-                name: 'Update employee roles'
+                name: 'View All Employees by Manager'
+            },
+            {
+                name: 'Add Employee'
+            },
+            {
+                name: 'Remove Employee'
+            },
+            {
+                name: 'Update Employee Role'
+            },
+            {
+                name: 'Update Employee Manager'
+            },
+            {
+                name: 'View All Roles'
             }
         ]
     }
 ])
+    .then(response=> {
+        console.log(response)
+        
+    })
