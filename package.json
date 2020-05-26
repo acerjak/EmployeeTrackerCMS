@@ -1,0 +1,24 @@
+{
+  "name": "EmployeeTrackerCMS",
+  "version": "1.0.0",
+  "description": "> \r ## Table of Contents\r * [Installation](#installation)\r * [Usage](#usage)\r * [License](#license)\r * [Contributing](#contributing)\r * [Tests](#tests)\r * [Questions](#questions)\r ## Installation\r #### Please follow this command to install npm dependencies:\r > npm init -y\r #### Please follow this command to initiate the application:\r > npm start\r ## Usage\r > \r ## Credits\r > \r ## License\r > None\r ## Tests\r > npm run test\r ## Questions\r > Please send any inquiries or concerns through [acerjak](https://api.github.com/users/acerjak \"GitHub Profile\") or at amandacerjak@gmail.com.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acerjak/EmployeeTrackerCMS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/acerjak/EmployeeTrackerCMS/issues"
+  },
+  "homepage": "https://github.com/acerjak/EmployeeTrackerCMS#readme",
+  "dependencies": {
+    "inquirer": "^7.1.0",
+    "mysql2": "^2.1.0"
+  }
+}
