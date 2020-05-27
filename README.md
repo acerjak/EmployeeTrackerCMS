@@ -16,7 +16,7 @@
 ## Usage
 > This application is to be used to help a company analyze their structure and make changes to their employee database.
 ## Credits
-> 
+> I worked on this application mostly on my own with the help of google-fu, notes from class, and past assignments/activities.
 ## License
 > None
 ## Tests
