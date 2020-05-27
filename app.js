@@ -26,8 +26,8 @@ prompt([
         name: 'trackerStart',
         message: 'What would you like to do?',
         choices: ['View All Employees', 'View All Departments', 'View All Roles', 
-        'View All Employees by Manager', 'Add Employee', 'Remove Employee', 
-        'Update Employee Role', 'Update Employee Manager', 'Finish']
+        'View All Employees by Manager', 'Add Employee', 'Add Department', 'Add Employee Role', 
+        'Remove Employee', 'Update Employee Role', 'Update Employee Manager', 'Finish']
     }
 ])
 //take response of trackerStart and 
@@ -51,21 +51,29 @@ prompt([
                 viewByManager()
                 break
             case 'Add Employee':
-                console.log('add employee')
+                // console.log('add employee')
                 addEmployee()
                 break
-            case 'Remove Employee':
-                console.log('remove employee')
-                removeEmployee()
+            case 'Add Department':
+                // console.log('add department')
+                addDepartment()
                 break
+            case 'Add Employee Role':
+                // console.log('add role')
+                addRole()
+                break
+            // case 'Remove Employee':
+            //     console.log('remove employee')
+            //     removeEmployee()
+            //     break
             case 'Update Employee Role':
                 console.log('update role')
                 updateRole()
                 break            
-            case 'Update Employee Manager':
-                console.log('update manager')
-                updateManager()
-                break
+            // case 'Update Employee Manager':
+            //     console.log('update manager')
+            //     updateManager()
+            //     break
             case 'Finish':
                 console.log('finish')
                 connection.end()
@@ -148,6 +156,7 @@ prompt([
                 name: 'Adminstrative Assistant',
                 value: 8
             }
+
         ]
     },
     {
@@ -204,8 +213,121 @@ prompt([
         mainQuestions()
     })
 })
-
 }
+//add new department
+let addDepartment = () => {
+prompt([
+    {
+        type: 'input',
+        name: 'department',
+        message: 'Please enter the name of the department'
+    }
+])
+.then(({department})=> {
+    // console.log(department)
+    connection.query('INSERT INTO department SET ?',
+    {
+        name: `${department}`
+    },
+    function(err, res) {
+        if (err) throw err;
+        console.log(res.affectedRows + " department inserted!");
+        mainQuestions()
+    })
+})
+}
+//add new role
+let addRole = () => {
+    // let departments = []
+    // connection.query('SELECT * FROM employeetracker_db.department', function(err, res) {
+    //     if (err) throw err;
+    //     console.log(res)
+    //     departments.push(res)
+prompt([
+    {
+            type: 'input',
+            name: 'title',
+            message: 'Please enter the title'
+    },
+    {
+            type: 'input',
+            name: 'salary',
+            message: 'Please enter the salary'
+    },
+    {
+            type: 'input',
+            name: 'department',
+            message: 'Please enter the name of the department'
+    }
+])
+.then(({title, salary, department})=> {
+    console.log(title, salary, department) 
+    // let newRole = new Role(title, salary, department)
+    if (department === 'Sales') {
+        department = 1
+        console.log(department)
+    connection.query('INSERT INTO role SET ?',
+    {
+        title: `${title}`,
+        salary: `${salary}`,
+        department_id: `${department}`
+    },
+    function(err, res) {
+        if (err) throw err;
+        console.log(res.affectedRows + " role inserted!");
+        mainQuestions()
+    })
+    } else if (department === 'Engineering') {
+        department = 2
+        console.log(department)
+    } else if (department === 'Legal') {
+        department = 3
+        console.log(department)
+    connection.query('INSERT INTO role SET ?',
+    {
+        title: `${title}`,
+        salary: `${salary}`,
+        department_id: `${department}`
+    },
+    function(err, res) {
+        if (err) throw err;
+        console.log(res.affectedRows + " role inserted!");
+        mainQuestions()
+    })
+    } else if (department === 'Finance') {
+        department = 4
+        console.log(department)
+    connection.query('INSERT INTO role SET ?',
+    {
+        title: `${title}`,
+        salary: `${salary}`,
+        department_id: `${department}`
+    },
+    function(err, res) {
+        if (err) throw err;
+        console.log(res.affectedRows + " role inserted!");
+        mainQuestions()
+    })
+    } else if (department === 'Administrative') {
+        department = 5
+        console.log(department)    
+    connection.query('INSERT INTO role SET ?',
+    {
+        title: `${title}`,
+        salary: `${salary}`,
+        department_id: `${department}`
+    },
+    function(err, res) {
+        if (err) throw err;
+        console.log(res.affectedRows + " role inserted!");
+        mainQuestions()
+    })
+    } else {
+        addDepartment()
+    }
+})
+}
+
     // connection.query('INSERT INTO employee SET ?',
     // {
         

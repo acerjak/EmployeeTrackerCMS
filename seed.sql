@@ -57,4 +57,6 @@ INSERT INTO employee SET ?,
         role_id: `${employeeRole}`,
         manager_id: `${employeeManager}`
     },
-
+-- grab new departments
+USE employeeTracker_db;
+SELECT * FROM employeetracker_db.employee;
