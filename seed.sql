@@ -59,4 +59,4 @@ INSERT INTO employee SET ?,
     },
 -- grab new departments
 USE employeeTracker_db;
-SELECT * FROM employeetracker_db.employee;
+SELECT * FROM employeetracker_db.department;

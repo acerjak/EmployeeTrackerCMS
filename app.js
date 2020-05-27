@@ -327,6 +327,18 @@ prompt([
     }
 })
 }
+//update role of employee
+let updateRole = () => {
+    connection.query('SELECT role_id FROM employeetracker_db.employee', function(err, res) {
+        if (err) throw err;
+        console.log(res)
+    })
+    connection.query('UPDATE employee SET ? WHERE ?',
+    [
+
+    ]
+    )
+}
 
     // connection.query('INSERT INTO employee SET ?',
     // {
