@@ -47,7 +47,7 @@ prompt([
                 viewRoles()
                 break            
             case 'View All Employees by Manager':
-                console.log('view employees by manager')
+                // console.log('view employees by manager')
                 viewByManager()
                 break
             case 'Add Employee':
@@ -72,7 +72,6 @@ prompt([
                 process.exit()
                 break
         }
-        
     })
 }
 //read db and display table of all employees
@@ -107,9 +106,110 @@ let viewByManager = () => {
         mainQuestions()
     })
 }
-//
+//add new employee
+let addEmployee = () => {
+//prompt employee questions
+prompt([
+    {
+        type: 'list',
+        name: 'employeeRole',
+        message: 'What is the role of the employee?',
+        choices: 
+        [
+            {
+                name: 'Sales Lead',
+                value: 1
+            },
+            {
+                name: 'Salesperson',
+                value: 2
+            },
+            {
+                name: 'Lead Engineer',
+                value: 3
+            },
+            {
+                name: 'Software Engineer',
+                value: 4
+            },
+            {
+                name: 'Accountant',
+                value: 5
+            },
+            {
+                name: 'Legal Team Lead',
+                value: 6
+            },
+            {
+                name: 'Lawyer',
+                value: 7
+            },
+            {
+                name: 'Adminstrative Assistant',
+                value: 8
+            }
+        ]
+    },
+    {
+        type: 'list',
+        name: 'employeeManager',
+        message: "Who is the employee's manager?",
+        choices: 
+        [
+            {
+                name: 'Brent Black',
+                value: 1
+            },
+            {
+                name: 'Amanda Bloom',
+                value: 2
+            },
+            {
+                name: 'Misty Love',
+                value: 3
+            },
+            {
+                name: 'Mike Smith',
+                value: 4
+            },
+            {
+                name: 'No Manager',
+                value: null
+            }
+        ]
+    },
+    {
+        type: 'input',
+        name: 'first_name',
+        message: "What is the employee's first name?",
+    },
+    {
+        type: 'input',
+        name: 'last_name',
+        message: "What is the employee's last name?",
+    }
+])
+.then(({first_name, last_name, employeeRole, employeeManager})=> {
+    // console.log(first_name, last_name,employeeRole, employeeManager)
+    connection.query('INSERT INTO employee SET ?',
+    {
+        first_name: `${first_name}`,
+        last_name: `${last_name}`,
+        role_id: `${employeeRole}`,
+        manager_id: `${employeeManager}`
+    },
+    function(err, res) {
+        if (err) throw err;
+        console.log(res.affectedRows + " employee inserted!");
+        mainQuestions()
+    })
+})
 
-
+}
+    // connection.query('INSERT INTO employee SET ?',
+    // {
+        
+    // })
 //choices[{name:"Attorney",value:4}]
 
 // before the inquiere build the choicesrole and the choice manager
