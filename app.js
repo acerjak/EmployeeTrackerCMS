@@ -116,6 +116,13 @@ let viewByManager = () => {
 }
 //add new employee
 let addEmployee = () => {
+    connection.query('SELECT * FROM employee', function(err, res) {
+        if (err) throw err;
+        let managers = res.filter((employee) => !employee.manager_id)
+    //     console.log(allEmployees)
+    //grab all employees from database
+    //make into objects array map iterator
+    //take array and put as choices
 //prompt employee questions
 prompt([
     {
@@ -163,29 +170,10 @@ prompt([
         type: 'list',
         name: 'employeeManager',
         message: "Who is the employee's manager?",
-        choices: 
-        [
-            {
-                name: 'Brent Black',
-                value: 1
-            },
-            {
-                name: 'Amanda Bloom',
-                value: 2
-            },
-            {
-                name: 'Misty Love',
-                value: 3
-            },
-            {
-                name: 'Mike Smith',
-                value: 4
-            },
-            {
-                name: 'No Manager',
-                value: null
-            }
-        ]
+        choices: managers.map(manager => ({
+            name: `${manager.first_name} ${manager.last_name}`,
+            value: manager.id
+        }))
     },
     {
         type: 'input',
@@ -212,6 +200,7 @@ prompt([
         console.log(res.affectedRows + " employee inserted!");
         mainQuestions()
     })
+})
 })
 }
 //add new department
