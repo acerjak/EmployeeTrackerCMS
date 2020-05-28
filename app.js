@@ -26,9 +26,9 @@ let mainQuestions = () => {
             type: 'list',
             name: 'trackerStart',
             message: 'What would you like to do?',
-            choices: ['View All Employees', 'View All Departments', 'View All Roles',
-                'View All Employees by Manager', 'Add Employee', 'Add Department', 'Add Employee Role',
-                'Remove Employee', 'Update Employee Role', 'Update Employee Manager', 'Finish'
+            choices: ['View All Employees', 'View All Departments', 'View All Roles', 
+                'View All Employees by Manager', 'Add Employee', 'Add Department', 'Add Role', 
+                'Update Employee Role', 'Finish'
             ]
         }])
         //take response of trackerStart and 
@@ -61,7 +61,7 @@ let mainQuestions = () => {
                     // console.log('add department')
                     addDepartment()
                     break
-                case 'Add Employee Role':
+                case 'Add Role':
                     // console.log('add role')
                     addRole()
                     break
@@ -206,139 +206,148 @@ let addDepartment = () => {
 }
 //add new role
 let addRole = () => {
-    // let departments = []
-    // connection.query('SELECT * FROM employeetracker_db.department', function(err, res) {
-    //     if (err) throw err;
-    //     console.log(res)
-    //     departments.push(res)
-    prompt([{
+    connection.query('SELECT * FROM department', function (err, res) {
+        if (err) throw err;
+        let departments = res
+        console.log("DEPARTMENTS", res)
+    prompt([
+        {
+            type: 'list',
+            name: 'departmentId',
+            message: "Please choose the department of the new role:",
+            choices: departments.map(departments => ({
+                name: `${departments.name}`,
+                value: departments.id
+            }))
+        },
+        {
                 type: 'input',
                 name: 'title',
-                message: 'Please enter the title'
+                message: 'Please enter the title:'
             },
             {
                 type: 'input',
                 name: 'salary',
-                message: 'Please enter the salary'
-            },
-            {
-                type: 'input',
-                name: 'department',
-                message: 'Please enter the name of the department'
+                message: 'Please enter the yearly salary:'
             }
         ])
-        .then(({
-            title,
-            salary,
-            department
-        }) => {
-            console.log(title, salary, department)
-            // let newRole = new Role(title, salary, department)
-            if (department === 'Sales') {
-                department = 1
-                console.log(department)
-                connection.query('INSERT INTO role SET ?', {
-                        title: `${title}`,
-                        salary: `${salary}`,
-                        department_id: `${department}`
-                    },
-                    function (err, res) {
-                        if (err) throw err;
-                        console.log(res.affectedRows + " role inserted!");
-                        mainQuestions()
-                    })
-            } else if (department === 'Engineering') {
-                department = 2
-                console.log(department)
-            } else if (department === 'Legal') {
-                department = 3
-                console.log(department)
-                connection.query('INSERT INTO role SET ?', {
-                        title: `${title}`,
-                        salary: `${salary}`,
-                        department_id: `${department}`
-                    },
-                    function (err, res) {
-                        if (err) throw err;
-                        console.log(res.affectedRows + " role inserted!");
-                        mainQuestions()
-                    })
-            } else if (department === 'Finance') {
-                department = 4
-                console.log(department)
-                connection.query('INSERT INTO role SET ?', {
-                        title: `${title}`,
-                        salary: `${salary}`,
-                        department_id: `${department}`
-                    },
-                    function (err, res) {
-                        if (err) throw err;
-                        console.log(res.affectedRows + " role inserted!");
-                        mainQuestions()
-                    })
-            } else if (department === 'Administrative') {
-                department = 5
-                console.log(department)
-                connection.query('INSERT INTO role SET ?', {
-                        title: `${title}`,
-                        salary: `${salary}`,
-                        department_id: `${department}`
-                    },
-                    function (err, res) {
-                        if (err) throw err;
-                        console.log(res.affectedRows + " role inserted!");
-                        mainQuestions()
-                    })
-            } else {
-                addDepartment()
-            }
+        .then(({ departmentId, title, salary }) => {
+            connection.query('INSERT INTO role SET ?', {
+                title: `${title}`,
+                salary: `${salary}`,
+                department_id: `${departmentId}`,
+            },
+            function (err, res) {if (err) throw err;
+            console.log(res.affectedRows + " role added!");
+            mainQuestions()
+            })
         })
-}
+    }
+)}
+
+// 
+            // // let newRole = new Role(title, salary, department)
+            // if (department === 'Sales') {
+            //     department = 1
+            //     console.log(department)
+            //     connection.query('INSERT INTO role SET ?', {
+            //             title: `${title}`,
+            //             salary: `${salary}`,
+            //             department_id: `${department}`
+            //         },
+            //         function (err, res) {
+            //             if (err) throw err;
+            //             console.log(res.affectedRows + " role inserted!");
+            //             mainQuestions()
+            //         })
+            // } else if (department === 'Engineering') {
+            //     department = 2
+            //     console.log(department)
+            // } else if (department === 'Legal') {
+            //     department = 3
+            //     console.log(department)
+            //     connection.query('INSERT INTO role SET ?', {
+            //             title: `${title}`,
+            //             salary: `${salary}`,
+            //             department_id: `${department}`
+            //         },
+            //         function (err, res) {
+            //             if (err) throw err;
+            //             console.log(res.affectedRows + " role inserted!");
+            //             mainQuestions()
+            //         })
+            // } else if (department === 'Finance') {
+            //     department = 4
+            //     console.log(department)
+            //     connection.query('INSERT INTO role SET ?', {
+            //             title: `${title}`,
+            //             salary: `${salary}`,
+            //             department_id: `${department}`
+            //         },
+            //         function (err, res) {
+            //             if (err) throw err;
+            //             console.log(res.affectedRows + " role inserted!");
+            //             mainQuestions()
+            //         })
+            // } else if (department === 'Administrative') {
+            //     department = 5
+            //     console.log(department)
+            //     connection.query('INSERT INTO role SET ?', {
+            //             title: `${title}`,
+            //             salary: `${salary}`,
+            //             department_id: `${department}`
+            //         },
+            // console.log(title, salary, department)                    
+//             function (err, res) {
+//                         if (err) throw err;
+//                         console.log(res.affectedRows + " role inserted!");
+//                         mainQuestions()
+//                     })
+//             } else {
+//                 addDepartment()
+//             }
+//         })
+//     })
+// }
 //update role of employee
 let updateRole = () => {
     connection.query('SELECT * FROM employee', function (err, res) {
         if (err) throw err;
         let employee = res
         // console.log("MANAGERS: ", managers)
-
-        connection.query('SELECT * FROM role', function (err, res) {
-            if (err) throw err;
-            let roles = res
+    connection.query('SELECT * FROM role', function (err, res) {
+        if (err) throw err;
+        let roles = res
             // .filter((role) => role.id, role.title)
             // console.log("ROLES: ", roles)
-            prompt([{
-                        type: 'list',
-                        name: 'employeeId',
-                        message: "Who is the employee you want to change the role?",
-                        choices: employee.map(employee => ({
-                            name: `${manager.first_name} ${manager.last_name}`,
-                            value: employee.id
-                        }))
-                    },
-                    {
-                        type: 'list',
-                        name: 'roleId',
-                        message: 'What is the role of the employee?',
-                        choices: roles.map(({
-                            id,
-                            title
-                        }) => ({
-                            name: title,
-                            value: id
-                        }))
-                    },
-                ])
-                .then(({
-                    employeeId,
-                    roleId
-                }) => {
-                    connection.query('UPDATE employee SET role_id = ? WHERE id = ?', [roleId, employeeId],
-                    function (err, res) {if (err) throw err;
-                    console.log(res.affectedRows + " role updated!");
-                    mainQuestions()
+        prompt(
+            [
+                {
+                    type: 'list',
+                    name: 'employeeId',
+                    message: "Who is the employee?",
+                    choices: employee.map(employee => ({
+                        name: `${employee.first_name} ${employee.last_name}`,
+                        value: employee.id
+                    }))
+                },
+                {
+                    type: 'list',
+                    name: 'roleId',
+                    message: 'What is the role of the employee?',
+                    choices: roles.map(({ id, title}) => ({
+                        name: title,
+                        value: id
+                    }))
+                },
+            ])
+            .then(({ employeeId,roleId }) => {
+                connection.query('UPDATE employee SET role_id = ? WHERE id = ?', [roleId, employeeId],
+                function (err, res) {if (err) throw err;
+                console.log(res.affectedRows + " role updated!");
+                mainQuestions()
                 })
-
-        })
+            })
     })
     })
 }
