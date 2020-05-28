@@ -1,6 +1,6 @@
 ## EmployeeTrackerCMS
 ## Description
-> This application allows the user to view employee information including role, salary, departments, and managers. This application allows the user to add a new employee, new role, and new department to better understand their company structure. The user is also able to view all departments, roles and employees based on managers. Though updating roles is currently being developed.
+> This application allows the user to view employee information including role, salary, departments, and managers. This application allows the user to add a new employee, new role, and new department to better understand their company structure. The user is also able to view all departments, roles and employees based on managers. Deleting an employee, updating a manager, and other additions to be added in the future.
 ## Table of Contents
 * [Installation](#installation)
 * [Usage](#usage)
