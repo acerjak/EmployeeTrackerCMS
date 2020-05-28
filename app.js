@@ -209,7 +209,7 @@ let addRole = () => {
     connection.query('SELECT * FROM department', function (err, res) {
         if (err) throw err;
         let departments = res
-        console.log("DEPARTMENTS", res)
+        // console.log("DEPARTMENTS", res)
     prompt([
         {
             type: 'list',
