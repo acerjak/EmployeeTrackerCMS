@@ -132,7 +132,7 @@ let addEmployee = () => {
             prompt([{
                         type: 'list',
                         name: 'employeeRole',
-                        message: 'What is the role of the employee?',
+                        message: 'Please pick a role:',
                         choices: roles.map(({
                             id,
                             title
@@ -144,7 +144,7 @@ let addEmployee = () => {
                     {
                         type: 'list',
                         name: 'employeeManager',
-                        message: "Who is the employee's manager?",
+                        message: "Please pick a manager:",
                         choices: managers.map(manager => ({
                             name: `${manager.first_name} ${manager.last_name}`,
                             value: manager.id
@@ -153,12 +153,12 @@ let addEmployee = () => {
                     {
                         type: 'input',
                         name: 'first_name',
-                        message: "What is the employee's first name?",
+                        message: "Please enter the employee's first name:",
                     },
                     {
                         type: 'input',
                         name: 'last_name',
-                        message: "What is the employee's last name?",
+                        message: "Please enter the employee's last name:",
                     }
                 ])
                 .then(({
@@ -188,7 +188,7 @@ let addDepartment = () => {
     prompt([{
             type: 'input',
             name: 'department',
-            message: 'Please enter the name of the department'
+            message: 'Please enter the name of the department:'
         }])
         .then(({
             department
@@ -214,7 +214,7 @@ let addRole = () => {
         {
             type: 'list',
             name: 'departmentId',
-            message: "Please choose the department of the new role:",
+            message: "Please choose a department:",
             choices: departments.map(departments => ({
                 name: `${departments.name}`,
                 value: departments.id
@@ -223,12 +223,12 @@ let addRole = () => {
         {
                 type: 'input',
                 name: 'title',
-                message: 'Please enter the title:'
+                message: 'Please enter their title:'
             },
             {
                 type: 'input',
                 name: 'salary',
-                message: 'Please enter the yearly salary:'
+                message: 'Please enter their yearly salary:'
             }
         ])
         .then(({ departmentId, title, salary }) => {
